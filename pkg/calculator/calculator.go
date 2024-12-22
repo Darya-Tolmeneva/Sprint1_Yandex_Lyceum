@@ -1,9 +1,9 @@
 package calculator
 
 import (
-	"Sprint1/internal/checker"
-	"Sprint1/internal/parser"
-	"Sprint1/internal/validator"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/pkg/checker"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/pkg/parser"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/pkg/validator"
 )
 
 // Calc принимает строковое математическое выражение, проверяет его корректность и возвращает результат вычисления.

@@ -1,7 +1,6 @@
-package tests
+package parser
 
 import (
-	"Sprint1/internal/parser"
 	"reflect"
 	"testing"
 )
@@ -18,7 +17,7 @@ func TestParseToPostfix(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.expression, func(t *testing.T) {
-			result := parser.ParseToPostfix(test.expression)
+			result := ParseToPostfix(test.expression)
 			if !reflect.DeepEqual(result, test.expected) {
 				t.Errorf("got %v, expected %v", result, test.expected)
 			}
@@ -38,7 +37,7 @@ func TestEvaluatePostfix(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run("", func(t *testing.T) {
-			result, err := parser.EvaluatePostfix(test.postfix)
+			result, err := EvaluatePostfix(test.postfix)
 			if test.shouldErr && err == nil {
 				t.Errorf("expected error, got result %v", result)
 			}

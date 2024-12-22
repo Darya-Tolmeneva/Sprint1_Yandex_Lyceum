@@ -1,13 +1,15 @@
 package main
 
 import (
-	"Sprint1/pkg/api"
 	"fmt"
-	"net/http"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/internal/application"
 )
 
 func main() {
-	http.HandleFunc("/api/v1/calculate", api.Handler)
-	fmt.Println("Server is running on port 8080...")
-	http.ListenAndServe(":8080", nil)
+	app := application.New()
+	fmt.Println("Run Server")
+	err := app.RunServer()
+	if err != nil {
+		return
+	}
 }

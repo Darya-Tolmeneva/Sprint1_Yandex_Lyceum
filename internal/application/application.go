@@ -1,17 +1,41 @@
-package api
+package application
 
 import (
-	"Sprint1/internal/calculator"
-	"Sprint1/internal/models"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/pkg/calculator"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/pkg/models"
 	"net/http"
+	"os"
 )
+
+type Config struct {
+	Addr string
+}
+
+func ConfigFromEnv() *Config {
+	config := new(Config)
+	config.Addr = os.Getenv("PORT")
+	if config.Addr == "" {
+		config.Addr = "8080"
+	}
+	return config
+}
+
+type Application struct {
+	config *Config
+}
+
+func New() *Application {
+	return &Application{
+		config: ConfigFromEnv(),
+	}
+}
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		http.Error(w, `{"error": "Method not allowed"}`, http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -33,4 +57,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.Response{Result: fmt.Sprintf("%.2f", result)})
+}
+
+func (a *Application) RunServer() error {
+	http.HandleFunc("/api/v1/calculate", Handler)
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, `{"error":"Not Found"}`, http.StatusNotFound)
+	})
+
+	return http.ListenAndServe(":"+a.config.Addr, nil)
 }

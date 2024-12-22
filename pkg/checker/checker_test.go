@@ -1,12 +1,11 @@
-package tests
+package checker
 
 import (
-	"Sprint1/internal/checker"
 	"testing"
 )
 
-func TestCheckParanthesis(t *testing.T) {
-	ch := checker.ExpressionChecker{}
+func TestCheckParenthesis(t *testing.T) {
+	ch := ExpressionChecker{}
 	tests := []struct {
 		expression string
 		expected   bool
@@ -27,7 +26,7 @@ func TestCheckParanthesis(t *testing.T) {
 }
 
 func TestCheckOperations(t *testing.T) {
-	ch := checker.ExpressionChecker{}
+	ch := ExpressionChecker{}
 	tests := []struct {
 		expression string
 		expected   bool
@@ -48,7 +47,7 @@ func TestCheckOperations(t *testing.T) {
 	}
 }
 func TestCheckSymbols(t *testing.T) {
-	ch := checker.ExpressionChecker{}
+	ch := ExpressionChecker{}
 	tests := []struct {
 		expression string
 		expected   bool

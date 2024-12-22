@@ -1,8 +1,8 @@
 package validator
 
 import (
-	"Sprint1/internal/checker"
-	"Sprint1/internal/models"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/pkg/checker"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/pkg/models"
 )
 
 func ValidateExpression(checker checker.Checker, expression string) error {

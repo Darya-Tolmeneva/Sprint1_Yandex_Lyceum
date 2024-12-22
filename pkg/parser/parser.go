@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"Sprint1/internal/checker"
-	"errors"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/pkg/checker"
+	"github.com/Darya-Tolmeneva/Sprint1_Yandex_Lyceum/pkg/models"
 	"strconv"
 	"strings"
 	"unicode"
@@ -92,14 +92,14 @@ func EvaluatePostfix(postfix []string) (float64, error) {
 			stack = append(stack, num)
 		} else if len(token) == 1 && checker.IsOperator(rune(token[0])) {
 			if len(stack) < 2 {
-				return 0, errors.New("недостаточно операндов в выражении")
+				return 0, models.ErrNotEnoughOperands
 			}
 			b := stack[len(stack)-1]
 			a := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
 
 			if rune(token[0]) == '/' && b == 0 {
-				return 0, errors.New("деление на ноль")
+				return 0, models.ErrDivisionByZero
 			}
 
 			result := operations(a, b, rune(token[0]))
@@ -108,7 +108,7 @@ func EvaluatePostfix(postfix []string) (float64, error) {
 	}
 
 	if len(stack) == 0 {
-		return 0, errors.New("выражение не вычислено")
+		return 0, models.ErrExpressionNotEvaluated
 	}
 	return stack[0], nil
 }
